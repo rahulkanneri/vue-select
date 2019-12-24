@@ -4,7 +4,6 @@
 
 <template>
   <div :dir="dir" class="v-select" :class="stateClasses">
-    <pre>{{ testLog }}</pre>
     <div ref="toggle" @mousedown.prevent="toggleDropdown" class="vs__dropdown-toggle">
 
       <div class="vs__selected-options" ref="selectedOptions">
@@ -73,6 +72,11 @@
         </li>
       </ul>
     </transition>
+
+    <pre>
+      <v-btn small flat @click="testLog = ''">Clear</v-btn>
+      {{ testLog }}
+    </pre>
   </div>
 </template>
 
