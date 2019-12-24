@@ -4,12 +4,7 @@
 
 <template>
   <div :dir="dir" class="v-select" :class="stateClasses">
-    <pre style="position: absolute; top: -175px;">
-      <v-btn small flat @click="testLog = ''">Clear</v-btn>
-      {{ testLog }}
-    </pre>
     <div ref="toggle" @mousedown.prevent="toggleDropdown" class="vs__dropdown-toggle">
-
       <div class="vs__selected-options" ref="selectedOptions">
         <slot v-for="option in selectedValue"
               name="selected-option-container"
@@ -65,7 +60,6 @@
           :class="{ 'vs__dropdown-option--selected': isOptionSelected(option), 'vs__dropdown-option--highlight': index === typeAheadPointer, 'vs__dropdown-option--disabled': !selectable(option) }"
           @mouseover="selectable(option) ? typeAheadPointer = index : null"
           @mousedown.prevent.stop="onMousedownEvent(option)"
-          @click.prevent.stop="onClickEvent(option)"
         >
           <slot name="option" v-bind="normalizeOptionForSlot(option)">
             {{ getOptionLabel(option) }}
