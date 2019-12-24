@@ -4,6 +4,7 @@
 
 <template>
   <div :dir="dir" class="v-select" :class="stateClasses">
+    <pre>{{ testLog }}</pre>
     <div ref="toggle" @mousedown.prevent="toggleDropdown" class="vs__dropdown-toggle">
 
       <div class="vs__selected-options" ref="selectedOptions">
@@ -60,8 +61,8 @@
           class="vs__dropdown-option"
           :class="{ 'vs__dropdown-option--selected': isOptionSelected(option), 'vs__dropdown-option--highlight': index === typeAheadPointer, 'vs__dropdown-option--disabled': !selectable(option) }"
           @mouseover="selectable(option) ? typeAheadPointer = index : null"
-          @mousedown.prevent.stop="selectable(option) ? select(option) : null"
-          @click.prevent.stop="select(option)"
+          @mousedown.prevent.stop="onMousedownEvent(option)"
+          @click.prevent.stop="onClickEvent(option)"
         >
           <slot name="option" v-bind="normalizeOptionForSlot(option)">
             {{ getOptionLabel(option) }}
@@ -506,6 +507,7 @@
 
     data() {
       return {
+        testLog: '',
         search: '',
         open: false,
         isComposing: false,
@@ -908,7 +910,21 @@
         if (typeof handlers[e.keyCode] === 'function') {
           return handlers[e.keyCode](e);
         }
-      }
+      },
+
+      onMousedownEvent (option) {
+        this.testLog = `${this.testLog}\n- Mouse down`
+        this.callNormalFn(option)
+      },
+
+      onClickEvent (option) {
+        this.testLog = `${this.testLog}\n- Click`
+        this.callNormalFn(option)
+      },
+
+      callNormalFn (option) {
+        this.selectable(option) ? this.select(option) : null
+      },
     },
 
     computed: {
