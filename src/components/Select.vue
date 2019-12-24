@@ -4,9 +4,6 @@
 
 <template>
   <div :dir="dir" class="v-select" :class="stateClasses">
-    <pre style="position: absolute; top: -175px;">
-      {{ testLog }}
-    </pre>
     <div ref="toggle" @mousedown.prevent="toggleDropdown" class="vs__dropdown-toggle">
       <div class="vs__selected-options" ref="selectedOptions">
         <slot v-for="option in selectedValue"
@@ -507,7 +504,6 @@
 
     data() {
       return {
-        testLog: '',
         search: '',
         open: false,
         isComposing: false,
@@ -912,17 +908,7 @@
         }
       },
 
-      onMousedownEvent (option) {
-        this.testLog = `${this.testLog}\n- Mouse down`
-        this.callNormalFn(option)
-      },
-
       onClickEvent (option) {
-        this.testLog = `${this.testLog}\n- Click`
-        this.callNormalFn(option)
-      },
-
-      callNormalFn (option) {
         this.selectable(option) ? this.select(option) : null
       },
     },
