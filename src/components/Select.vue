@@ -15,7 +15,7 @@
               :disabled="disabled">
           <span :key="getOptionKey(option)" class="vs__selected">
             <slot name="selected-option" v-bind="normalizeOptionForSlot(option)">
-              {{ getOptionLabel(option) }}
+              <div class="selected-value">{{ getOptionLabel(option) }}</div>
             </slot>
             <button v-if="multiple" :disabled="disabled" @click="deselect(option)" type="button" class="vs__deselect" aria-label="Deselect option" ref="deselectButtons">
               <component :is="childComponents.Deselect" />
